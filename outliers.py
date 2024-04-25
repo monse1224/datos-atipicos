@@ -54,3 +54,4 @@ plt.ylabel('Frecuencia')
 #plt.show()
 
 data_clean_iqr["ventas_precios_corrientes"].to_csv('ventas_precios_corrientes.csv')
+
