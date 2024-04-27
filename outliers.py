@@ -53,5 +53,22 @@ plt.xlabel('ventas_precios_corrientes')
 plt.ylabel('Frecuencia')
 #plt.show()
 
+#Método con desviación estándar
 data_clean_iqr["ventas_precios_corrientes"].to_csv('ventas_precios_corrientes.csv')
 
+y=df["ventas_precios_corrientes"]
+Limite_Superior_dev_std= y.mean() + 3*y.std()
+Limite_Inferior_dev_std= y.mean() - 3*y.std()
+print("Limite superior permitido usando desv estandar", Limite_Superior_dev_std)
+print("Limite inferior permitido usando desv estandar", Limite_Inferior_dev_std)
+
+#Obtenemos datos limpios
+data_clean_dev_std= df[(y<=Limite_Superior_dev_std)&(y>=Limite_Inferior_dev_std)]
+print(data_clean_dev_std)
+
+fig = plt.figure(figsize =(7, 3))
+plt.hist(x=data_clean_iqr["ventas_precios_corrientes"], color='red', rwidth=0.50)
+plt.title('Histograma de ventas_precios_corrientes sin outliers- desv std')
+plt.xlabel('ventas_precios_corrientes')
+plt.ylabel('Frecuencia')
+#plt.show()
