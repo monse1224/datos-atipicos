@@ -72,3 +72,68 @@ plt.title('Histograma de ventas_precios_corrientes sin outliers- desv std')
 plt.xlabel('ventas_precios_corrientes')
 plt.ylabel('Frecuencia')
 #plt.show()
+
+#COLUMNA 2: VENTAS_PRECIOS_CONSTANTES
+fig2 = plt.figure(figsize =(7, 3))
+plt.hist(x=df["ventas_precios_constantes"], color='red', rwidth=0.50)
+plt.title('Histograma de ventas_precios_constantes con outliers')
+plt.xlabel('ventas_precios_constantes')
+plt.ylabel('Frecuencia')
+#plt.show()
+
+fig2 = plt.figure(figsize =(5, 3))
+plt.boxplot(df["ventas_precios_constantes"]) 
+plt.title("Outliers de ventas_precios_constantes con outliers")
+#plt.show()
+
+y2=df['ventas_precios_constantes']
+print(y2)
+
+percentile25=y2.quantile(0.25) #Q1
+percentile75=y2.quantile(0.75) #Q3
+print(percentile25)
+print(percentile75)
+iqr2= percentile75 - percentile25
+print(iqr2)
+
+Limite_Superior_iqr2= percentile75 + 1.5*iqr2
+Limite_Inferior_iqr2= percentile25 - 1.5*iqr2
+print("Limite superior permitido", Limite_Superior_iqr2)
+print("Limite inferior permitido", Limite_Inferior_iqr2)
+
+#Obtenemos datos limpios
+data_clean_iqr2= df[(y2<=Limite_Superior_iqr2)&(y2>=Limite_Inferior_iqr2)]
+print(data_clean_iqr2)
+
+fig2 = plt.figure(figsize =(5, 3))
+plt.boxplot(data_clean_iqr2["ventas_precios_constantes"]) 
+plt.title("Outliers de ventas_precios_constantes")
+#plt.show()
+
+fig2 = plt.figure(figsize =(7, 3))
+plt.hist(x=data_clean_iqr2["ventas_precios_constantes"], color='red', rwidth=0.50)
+plt.title('Histograma de ventas_precios_constantes sin outliers')
+plt.xlabel('ventas_precios_constantes')
+plt.ylabel('Frecuencia')
+#plt.show()
+
+#Método con desviación estándar
+data_clean_iqr["ventas_precios_constantes"].to_csv('ventas_precios_constantes.csv')
+
+y2=df["ventas_precios_constantes"]
+Limite_Superior_dev_std2= y2.mean() + 3*y2.std()
+Limite_Inferior_dev_std2= y2.mean() - 3*y2.std()
+print("Limite superior permitido usando desv estandar", Limite_Superior_dev_std2)
+print("Limite inferior permitido usando desv estandar", Limite_Inferior_dev_std2)
+
+#Obtenemos datos limpios
+data_clean_dev_std2= df[(y2<=Limite_Superior_dev_std2)&(y>=Limite_Inferior_dev_std2)]
+print(data_clean_dev_std2)
+
+fig2 = plt.figure(figsize =(7, 3))
+plt.hist(x=data_clean_iqr["ventas_precios_constantes"], color='red', rwidth=0.50)
+plt.title('Histograma de ventas_precios_constantes sin outliers- desv std')
+plt.xlabel('ventas_precios_constantes')
+plt.ylabel('Frecuencia')
+#plt.show()
+
