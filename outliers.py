@@ -118,7 +118,7 @@ plt.ylabel('Frecuencia')
 #plt.show()
 
 #Método con desviación estándar
-data_clean_iqr["ventas_precios_constantes"].to_csv('ventas_precios_constantes.csv')
+data_clean_iqr2["ventas_precios_constantes"].to_csv('ventas_precios_constantes.csv')
 
 y2=df["ventas_precios_constantes"]
 Limite_Superior_dev_std2= y2.mean() + 3*y2.std()
@@ -137,3 +137,67 @@ plt.xlabel('ventas_precios_constantes')
 plt.ylabel('Frecuencia')
 #plt.show()
 
+
+#COLUMNA : salon_ventas
+fig3 = plt.figure(figsize =(7, 3))
+plt.hist(x=df["salon_ventas"], color='red', rwidth=0.50)
+plt.title('Histograma de salon_ventas con outliers')
+plt.xlabel('salon_ventas')
+plt.ylabel('Frecuencia')
+#plt.show()
+
+fig3 = plt.figure(figsize =(5, 3))
+plt.boxplot(df["salon_ventas"]) 
+plt.title("Outliers de salon_ventas con outliers")
+#plt.show()
+
+y3=df['salon_ventas']
+print(y3)
+
+percentile25=y3.quantile(0.25) #Q1
+percentile75=y3.quantile(0.75) #Q3
+print(percentile25)
+print(percentile75)
+iqr3= percentile75 - percentile25
+print(iqr3)
+
+Limite_Superior_iqr3= percentile75 + 1.5*iqr3
+Limite_Inferior_iqr3= percentile25 - 1.5*iqr3
+print("Limite superior permitido", Limite_Superior_iqr3)
+print("Limite inferior permitido", Limite_Inferior_iqr3)
+
+#Obtenemos datos limpios
+data_clean_iqr3= df[(y3<=Limite_Superior_iqr3)&(y3>=Limite_Inferior_iqr3)]
+print(data_clean_iqr3)
+
+fig3 = plt.figure(figsize =(5, 3))
+plt.boxplot(data_clean_iqr3["salon_ventas"]) 
+plt.title("Outliers de salon_ventas")
+#plt.show()
+
+fig3 = plt.figure(figsize =(7, 3))
+plt.hist(x=data_clean_iqr3["salon_ventas"], color='red', rwidth=0.50)
+plt.title('Histograma de salon_ventas sin outliers')
+plt.xlabel('salon_ventas')
+plt.ylabel('Frecuencia')
+#plt.show()
+
+#Método con desviación estándar
+data_clean_iqr3["salon_ventas"].to_csv('salon_ventas.csv')
+
+y3=df["salon_ventas"]
+Limite_Superior_dev_std3= y3.mean() + 3*y3.std()
+Limite_Inferior_dev_std3= y3.mean() - 3*y3.std()
+print("Limite superior permitido usando desv estandar", Limite_Superior_dev_std3)
+print("Limite inferior permitido usando desv estandar", Limite_Inferior_dev_std3)
+
+#Obtenemos datos limpios
+data_clean_dev_std3= df[(y3<=Limite_Superior_dev_std3)&(y>=Limite_Inferior_dev_std3)]
+print(data_clean_dev_std3)
+
+fig3 = plt.figure(figsize =(7, 3))
+plt.hist(x=data_clean_iqr3["salon_ventas"], color='red', rwidth=0.50)
+plt.title('Histograma de salon_ventas sin outliers- desv std')
+plt.xlabel('salon_ventas')
+plt.ylabel('Frecuencia')
+#plt.show()
