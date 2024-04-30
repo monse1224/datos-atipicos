@@ -99,7 +99,7 @@ print("Limite superior permitido", Limite_Superior_iqr2)
 print("Limite inferior permitido", Limite_Inferior_iqr2)
 
 #Obtenemos datos limpios
-data_clean_iqr2= df2[(y<=Limite_Superior_iqr2)&(y>=Limite_Inferior_iqr2)]
+data_clean_iqr2= df2[(y2<=Limite_Superior_iqr2)&(y2>=Limite_Inferior_iqr2)]
 print(data_clean_iqr2)
 
 fig2 = plt.figure(figsize =(5, 3))
@@ -118,8 +118,8 @@ plt.show()
 data_clean_iqr2["IMPORTE"].to_csv('IMPORTE.csv')
 
 y2=df2["IMPORTE"]
-Limite_Superior_dev_std2= y2.mean() + 3*y.std()
-Limite_Inferior_dev_std2= y2.mean() - 3*y.std()
+Limite_Superior_dev_std2= y2.mean() + 3*y2.std()
+Limite_Inferior_dev_std2= y2.mean() - 3*y2.std()
 print("Limite superior permitido usando desv estandar", Limite_Superior_dev_std2)
 print("Limite inferior permitido usando desv estandar", Limite_Inferior_dev_std2)
 
